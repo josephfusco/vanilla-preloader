@@ -18,11 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Vanilla_Preloader {
 
-	private $background_color          = '#fff';
-	private $animation_duration        = '300ms';
-	private $animation_timing_function = 'ease-out';
+	private $background_color;
+	private $animation_duration;
+	private $animation_timing_function;
 
 	function __construct() {
+		$this->background_color          = apply_filters( 'jfvp_background_color', '#fff' );
+		$this->animation_duration        = apply_filters( 'jfvp_animation_duration', '300ms' );
+		$this->animation_timing_function = apply_filters( 'jfvp_animation_timing_function', 'ease-out' );
+
 		$this->load_css();
 		$this->load_js();
 	}
@@ -44,4 +48,6 @@ class Vanilla_Preloader {
 	}
 }
 
-$vanilla_preloader = new Vanilla_Preloader();
+add_action( 'init', function() {
+	new Vanilla_Preloader();
+} );
